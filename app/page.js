@@ -3,14 +3,14 @@ import { useState } from 'react';
 
 export default function Home() {
   const [url, setUrl] = useState('');
-  const [mediaData, setMediaData] = useState(null); 
+  const [mediaSrc, setMediaSrc] = useState(null); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [videoFailed, setVideoFailed] = useState(false);
 
   const handleDownload = async () => {
     setLoading(true);
-    setMediaData(null);
+    setMediaSrc(null);
     setError(null);
     setVideoFailed(false);
     
@@ -22,11 +22,10 @@ export default function Home() {
       });
       const data = await res.json();
       
-      if (res.ok && (data.videoUrl || data.steamUrl)) {
-        setMediaData({
+      if (res.ok && data.videoUrl) {
+        setMediaSrc({
           video: data.videoUrl,
-          image: data.videoUrl ? data.videoUrl.replace('/wallpapers/', '/posters/').replace('.mp4', '.webp') : null,
-          steam: data.steamUrl
+          image: data.videoUrl.replace('/wallpapers/', '/posters/').replace('.mp4', '.webp')
         });
       } else {
         setError(data.error || 'An error occurred, media not found.');
@@ -39,75 +38,65 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-10 font-sans bg-gray-50 text-gray-900">
-      <h1 className="text-4xl font-bold mb-8 mt-10">WES Downloader V2</h1>
+    <main className="flex min-h-screen flex-col items-center p-10 font-sans bg-gray-950 text-gray-100">
+      <h1 className="text-4xl font-extrabold mb-8 mt-10 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
+        WES Downloader V2
+      </h1>
       
       <div className="w-full max-w-xl flex flex-col gap-4">
         <input 
           type="text" 
           placeholder="Paste WallpaperEngine.Space link here..." 
-          className="border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:border-blue-500"
+          className="border border-gray-800 bg-gray-900 text-gray-100 placeholder-gray-500 p-4 rounded-xl focus:outline-none focus:border-indigo-500 shadow-inner transition"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
         <button 
           onClick={handleDownload} 
           disabled={loading || !url}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-4 rounded-lg transition disabled:bg-gray-400"
+          className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-4 rounded-xl transition shadow-lg disabled:bg-gray-800 disabled:text-gray-600"
         >
-          {loading ? 'Extracting...' : 'Get Media Links'}
+          {loading ? 'Extracting...' : 'Get Video Link'}
         </button>
       </div>
 
-      {error && <p className="text-red-500 mt-6 font-medium">{error}</p>}
+      {error && <p className="text-red-400 mt-6 font-medium">{error}</p>}
 
-      {mediaData && (
+      {mediaSrc && (
         <div className="mt-10 text-center flex flex-col items-center w-full max-w-4xl">
-          <p className="mb-4 text-green-600 font-bold">Extraction complete!</p>
+          <p className="mb-4 text-emerald-400 font-semibold">Extraction complete!</p>
 
-          {mediaData.steam && (
-            <div className="mb-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200 w-full text-left shadow-sm">
-              <p className="font-bold text-blue-800 text-lg mb-2">🔥 Get Original 4K / Scene Version:</p>
-              <a href={mediaData.steam} target="_blank" rel="noreferrer" className="text-blue-600 underline break-all font-medium">
-                {mediaData.steam}
-              </a>
-              <p className="text-sm mt-3 text-gray-600">
-                Copy this link and paste it into a site like <b>SteamWorkshopDownloader.io</b> to download the full original file.
-              </p>
-            </div>
-          )}
-
-          {!videoFailed && mediaData.video ? (
+          {!videoFailed ? (
             <>
               <video 
-                src={mediaData.video} 
+                src={mediaSrc.video} 
                 controls 
                 autoPlay 
-                className="w-full rounded-xl shadow-2xl mb-6 bg-black max-h-[60vh]"
+                className="w-full rounded-2xl shadow-2xl mb-6 bg-black border border-gray-800 max-h-[60vh]"
                 onError={() => setVideoFailed(true)}
               />
-              <a href={mediaData.video} target="_blank" rel="noreferrer" 
-                 className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg transition mb-4">
-                Download Preview Video (.mp4)
+              <a href={mediaSrc.video} target="_blank" rel="noreferrer" 
+                 className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition mb-4">
+                Download Video (.mp4)
               </a>
             </>
-          ) : mediaData.image ? (
+          ) : (
             <>
-              <p className="text-orange-600 font-medium mb-4">
+              <p className="text-amber-400 font-medium mb-4">
                 ⚠️ No video preview available. Displaying image preview instead:
               </p>
               <img 
-                src={mediaData.image} 
+                src={mediaSrc.image} 
                 alt="Wallpaper Preview" 
-                className="w-full rounded-xl shadow-2xl mb-6 bg-black max-h-[60vh] object-cover"
+                className="w-full rounded-2xl shadow-2xl mb-6 bg-black border border-gray-800 max-h-[60vh] object-cover"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
-              <a href={mediaData.image} target="_blank" rel="noreferrer" 
-                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold shadow-lg transition mb-4">
-                Download Preview Image (.webp)
+              <a href={mediaSrc.image} target="_blank" rel="noreferrer" 
+                 className="bg-amber-600 hover:bg-amber-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg transition mb-4">
+                Download Image (.webp)
               </a>
             </>
-          ) : null}
+          )}
         </div>
       )}
     </main>

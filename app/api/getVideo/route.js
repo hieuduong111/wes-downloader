@@ -30,29 +30,8 @@ export async function POST(request) {
       }
     }
 
-    let steamUrl = null;
-    try {
-      const pageRes = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        }
-      });
-      
-      if (pageRes.ok) {
-        const html = await pageRes.text();
-        const steamMatch = html.match(/https:\/\/steamcommunity\.com\/sharedfiles\/filedetails\/\?id=\d+/);
-        if (steamMatch) {
-          steamUrl = steamMatch[0];
-        }
-      }
-    } catch (e) {
-    }
-
-    if (validVideoUrl || steamUrl) {
-      return NextResponse.json({ 
-        videoUrl: validVideoUrl,
-        steamUrl: steamUrl 
-      });
+    if (validVideoUrl) {
+      return NextResponse.json({ videoUrl: validVideoUrl });
     }
     
     return NextResponse.json({ error: 'Media file not found on WES servers.' }, { status: 404 });
