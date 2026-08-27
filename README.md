@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WES downloader V2
+## Download wallpapers directly from [wallpaperengine.space](https://wallpaperengine.space)
 
-## Getting Started
+### https://wallpaperenginespace-downloader.vercel.app
 
-First, run the development server:
+<h1 align="center">
+	<a href="#"><img src="https://ibb.co/XZJLJvVY"></a>
+</h1>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# How it works
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<h1 align="center">
+	<a href="#"><img src="https://ibb.co/MDd1bVfb"></a>
+</h1>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Credits
 
-## Learn More
+### Developer:
 
-To learn more about Next.js, take a look at the following resources:
+- hieuduong111<br>
+    Discord: `hieuduong111`<br>
+    GitHub: https://github.com/hieuduong111
+    *(Rebuilt & Modernized from original concept)*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Tech Stack & Core Technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework**: [Next.js (App Router)](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
 
-## Deploy on Vercel
+### Key Features (V2)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Direct Media Extraction**: Bypasses complex stream chunking and `mux.js` re-assembly, directly fetching raw `.mp4` files from WES servers.
+- **Smart Fallback System**: Automatically handles directory variations (`wallpapers/` vs `fallback/live-capture/`) and falls back to `.webp` posters if video previews are unavailable.
+- **Modern Dark UI**: Features a sleek, responsive dark-themed user interface built with Tailwind CSS.
