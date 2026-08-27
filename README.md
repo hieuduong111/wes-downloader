@@ -11,7 +11,7 @@
 # How it works
 
 <h1 align="center">
-	<a href="#"><img src="https://i.ibb.co/pCF0N2m/file-000000009570820ba61c9fb6f4aa7270.webp"></a>
+	<a href="#"><img src="https://i.ibb.co/bgxhVYwN/Untitled-2026-08-27-2018.png"></a>
 </h1>
 
 # Credits
