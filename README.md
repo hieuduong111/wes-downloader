@@ -33,4 +33,3 @@
 
 - **Direct Media Extraction**: Bypasses complex stream chunking and `mux.js` re-assembly, directly fetching raw `.mp4` files from WES servers.
 - **Smart Fallback System**: Automatically handles directory variations (`wallpapers/` vs `fallback/live-capture/`) and falls back to `.webp` posters if video previews are unavailable.
-- **Modern Dark UI**: Features a sleek, responsive dark-themed user interface built with Tailwind CSS.
